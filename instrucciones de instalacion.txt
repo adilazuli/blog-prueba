@@ -1,0 +1,14 @@
+Instalacion 
+1 - crear la base de datos para la prueba
+2 - usar el comando composer install
+3 - usar el comando npm install
+4 - editar el archivo .env.example con la credenciales para la conexion a la base de datos
+    - copiar y renombrar el archivo .env.example a .env 
+5 - Alternativo - importar el archivo blogapp.sql que esta en el sistema o pueden correr las migraciones
+    - en caso de correr las migraciones usar el comando php artisan migration --seed
+    - en caso de importar el archivo blogapp.sql debe abrir su manejador de base de datos e importarlo
+6 - usar el comando php artisan key:generate
+7 - usar el comando npm run dev
+8 - usar el comando php artisan serve
+9 - Ir a la ruta que le va a generar el comando anterior y visualizar el sistema.
+10 - para entrar al sistema usar este usuario adriana@blog.com y la clave es 12345678
