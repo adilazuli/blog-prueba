@@ -18,7 +18,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Posts::with('author')->get();
+        $posts = Posts::orderBy('created_at', "desc")->paginate(5);
+
         foreach ($posts as $post) {
             $post->imgUrl = asset('storage/'.$post->imgUrl);
         }
@@ -29,6 +30,7 @@ class HomeController extends Controller
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
         ]);
+
     }
 
     /**
@@ -63,18 +65,18 @@ class HomeController extends Controller
         $post = Posts::with('author')->find($id);
         $post->imgUrl = asset('storage/'.$post->imgUrl);
 
-        $postPrev = Posts::find($id-1);
-        $postNext = Posts::find($id+1);
+        $postPrev = Posts::where('id', '<', $id)->latest()->first();
+        $postNext = Posts::where('id', '>', $id)->first();
 
         $post->previous = null;
         $post->next = null;
 
         if (!empty($postPrev)) {
-            $post->previous = ($id-1);
+            $post->previous = $postPrev->id;
         }
 
         if (!empty($postNext)) {
-            $post->next = ($id+1);
+            $post->next = $postNext->id;
         }
 
         return Inertia::render('Post',[

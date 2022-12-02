@@ -23,7 +23,7 @@ defineProps({
                         class="md:text-8xl uppercase text-xl text-white md:col-span-2 md:text-right mr-4 leading-tight">
                         <h1>Mi <br>
                             primer <i>blog</i> </h1>
-                        <h1>con Laravel <span class="flex justify-end">y <div class="typewriter ml-8">vue</div></span>
+                        <h1>con Laravel <span class="sm:flex justify-end">y <div class="typewriter ml-8">vue</div></span>
                         </h1>
                     </div>
                     <div class="image md:h-full h-48"></div>

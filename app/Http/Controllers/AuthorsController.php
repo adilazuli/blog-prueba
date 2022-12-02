@@ -15,7 +15,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        $authors = Authors::get();
+        $authors = Authors::orderBy('created_at', "desc")->paginate(8);
         return Inertia::render('Autores',[
             "authors" => $authors
         ]);

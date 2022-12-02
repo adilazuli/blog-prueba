@@ -53,7 +53,9 @@ const update= () => {
                         <textarea v-model="form.description" placeholder="Descripción" class="rounded-md w-full h-4/5" />
                     </div>
                     <div class="flex flex-col justify-end">
-                        <img :src="props.post.imgUrl" alt="">
+                        <div class="h-96">
+                            <img :src="props.post.imgUrl" alt="imagen" class="h-full">
+                        </div>
                         <input type="file" class="text-white mt-3" @input="form.imgUrl = $event.target.files[0]" accept=".jpg, .jpeg, .png">
                     </div>
                 </div>

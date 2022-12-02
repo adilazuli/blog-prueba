@@ -2,8 +2,7 @@
 import Button from '@/Components/Button.vue';
 import ValidationErrors from '@/Components/ValidationErrors.vue';
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import { Head, useForm } from '@inertiajs/inertia-vue3';
-import { id } from 'date-fns/locale';
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -34,10 +33,10 @@ const deleteAuthor = (id) => {
     });
 };
 
-const selectInput = (index) =>{
-    author.id =  props.authors[index].id
-    author.name =  props.authors[index].name
-    indexInput.value =  index
+const selectInput = (index) => {
+    author.id = props.authors.data[index].id
+    author.name = props.authors.data[index].name
+    indexInput.value = index
 }
 
 const update = () => {
@@ -62,12 +61,12 @@ const update = () => {
                 <div class="flex flex-wrap justify-center sm:justify-between">
                     <div class="w-2/3">
                         <h1 class="text-5xl text-bold text-slate-200">Autores</h1>
-                        <span class="text-sky-500 font-light text-xs mt-1">{{ authors.length }} autores</span>
+                        <span class="text-sky-500 font-light text-xs mt-1">{{ authors.data.length }} autores</span>
                     </div>
                     <input type="text" v-model="form.name" placeholder="Nombre"
                         class="h-8 mt-8 sm:mt-0.5 focus:border-slate-700 focus:ring-slate-600 border-slate-400/10 rounded-md bg-transparent text-white w-full sm:w-auto">
                     <Button @click="submit" class="sm:w-fit w-full mt-2 sm:mt-0">
-                        <img src="@/assets/plus.svg" alt="" class="h-4 mr-2.5"> 
+                        <img src="@/assets/plus.svg" alt="" class="h-4 mr-2.5">
                         Añadir autor
                     </Button>
                 </div>
@@ -76,11 +75,13 @@ const update = () => {
                         <ValidationErrors class="mb-4" />
                         <p class="border-b mb-2 py-2 border-slate-400/10 mt-10 text-gray-200 text-xs">Nombre</p>
                         <ul>
-                            <li v-for="(item, index) in authors" :key="index">
-                                <div class="flex justify-between border-b mb-2 py-2 border-slate-400/10 text-sm text-indigo-300">
+                            <li v-for="(item, index) in authors.data" :key="index">
+                                <div
+                                    class="flex justify-between border-b mb-2 py-2 border-slate-400/10 text-sm text-indigo-300">
                                     <p v-if="(indexInput != index)">{{ item.name }}</p>
                                     <div v-else-if="(author && author.id == item.id)">
-                                        <input  type="text" v-model="author.name" class="focus:border-slate-700 focus:ring-slate-600 border-slate-400/10 rounded-md bg-transparent text-white">
+                                        <input type="text" v-model="author.name"
+                                            class="focus:border-slate-700 focus:ring-slate-600 border-slate-400/10 rounded-md bg-transparent text-white">
                                         <Button class="sm:ml-3" @click="update">Actualizar</Button>
                                     </div>
                                     <div class="flex">
@@ -95,6 +96,12 @@ const update = () => {
                             </li>
                         </ul>
                     </div>
+                    <ul class="flex justify-between w-64 mx-auto text-white my-16">
+                        <li v-for="(item, index) in authors.links">
+                            <Link v-html="item.label" :href="item.url" :class="item.active ? 'text-sky-500' : ''">
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -16,7 +16,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Posts::with('author')->get();
+
+        $posts = Posts::with('author')->orderBy('created_at', "desc")->paginate(8);
         return Inertia::render('Publicaciones',[
             "posts" => $posts
         ]);

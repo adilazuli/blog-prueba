@@ -1,3 +1,27 @@
+<script>
+export default {
+    // Obtener preview de imagen
+    data(){
+        return{
+            imgPreview: null
+        }
+    },
+
+   methods: {
+    GetImage(e){
+        console.log("Aqui", e.target.files);
+        let image =  e.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(image)
+        reader.onload = e => {
+            console.log(e)
+            this.imgPreview = e.target.result
+        }
+    }
+   }
+}
+</script>
+
 <script setup>
 import Button from '@/Components/Button.vue';
 import ValidationErrors from '@/Components/ValidationErrors.vue';
@@ -13,12 +37,13 @@ const form = useForm({
     author_id: '',
     imgUrl: null,
     description: ''
-
+    
 });
+
 
 const submit = () => {
     form.post(route('publicaciones.store'), {
-        onFinish: () => alert("Post creado"),
+        onSuccess: () => alert("Post creado"),
     });
 };
 
@@ -52,8 +77,11 @@ const submit = () => {
                         <textarea v-model="form.description" placeholder="Descripción" class="rounded-md w-full h-4/5" />
                     </div>
                     <div class="flex flex-col justify-end">
-                        <img src="@/assets/default_image.jpg" alt="">
-                        <input type="file" class="text-white mt-3" @input="form.imgUrl = $event.target.files[0]" accept=".jpg, .jpeg, .png">
+                        <div class="h-96">
+                            <img v-if="imgPreview" :src="imgPreview" alt="Imagen" class="h-full">
+                            <img v-else src="@/assets/default_image.jpg" alt="Imagen">
+                        </div>
+                        <input @change="GetImage" type="file" class="text-white mt-3" @input="form.imgUrl = $event.target.files[0]" accept=".jpg, .jpeg, .png">
                     </div>
                 </div>
             </div>

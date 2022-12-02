@@ -4,7 +4,7 @@ import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import { format } from 'date-fns'
 
-defineProps({
+const props = defineProps({
     posts: Object
 })
 const form = useForm();
@@ -47,7 +47,7 @@ const deletePost = (id) => {
                             <div class="w-16"></div>
                         </div>
                         <ul>
-                            <li v-for="(item, index) in posts" :key="index">
+                            <li v-for="(item, index) in posts.data" :key="index">
                                 <div class="grid grid-cols-4 border-b mb-2 py-2 border-slate-400/10 text-sm text-indigo-300">
                                     <p class="text-ellipsis pr-4">{{ item.title }}</p>
                                     <p class="text-ellipsis pr-4">{{ item.author.name }}</p>
@@ -64,6 +64,12 @@ const deletePost = (id) => {
                             </li>
                         </ul>
                     </div>
+                    <ul class="flex justify-between w-64 mx-auto text-white my-16">
+                        <li v-for="(item, index) in posts.links">
+                            <Link v-html="item.label" :href="item.url" :class="item.active ? 'text-sky-500' : ''">
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
