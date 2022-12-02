@@ -3,7 +3,7 @@ import Button from '@/Components/Button.vue';
 import ValidationErrors from '@/Components/ValidationErrors.vue';
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
-
+import Swal from 'sweetalert2';
 
 const props = defineProps({
     authors: Object,
@@ -21,7 +21,13 @@ const form = useForm({
 
 const update= () => {
     form.post(route('publicaciones.update', props.post.id), {
-        onFinish: () => alert("Post actualizado"),
+        onSuccess: () => Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Post actualizado',
+            showConfirmButton: false,
+            timer: 1500
+        }),
     });
 };
 
@@ -33,7 +39,6 @@ const update= () => {
 
     <AuthenticatedLayout>
         <div class="py-12  h-full">
-            <ValidationErrors class="mb-4" />
             <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8 ">
                 <div class="flex w-full justify-between">
                     <h1 class="text-5xl text-bold text-slate-200">Crear publicacion</h1>
@@ -41,6 +46,7 @@ const update= () => {
                         Actualizar publicación
                     </Button>
                 </div>
+                <ValidationErrors class="mt-4" />
                 <div class="mt-20 overflow-hidden grid grid-cols-2 gap-5">
                     <div class="flex flex-col gap-5">
                         <select name="Autor" id="" class="rounded-md" v-model="form.author_id">

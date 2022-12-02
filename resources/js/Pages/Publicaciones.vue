@@ -3,6 +3,7 @@ import Button from '@/Components/Button.vue';
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import { format } from 'date-fns'
+import Swal from 'sweetalert2';
 
 const props = defineProps({
     posts: Object
@@ -11,7 +12,13 @@ const form = useForm();
 
 const deletePost = (id) => {
     form.delete(route('publicaciones.destroy', id), {
-        onFinish: () => alert("Post eliminado"),
+        onSuccess: () => Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Post eliminado',
+            showConfirmButton: false,
+            timer: 1500
+        }),
     });
 };
 

@@ -4,6 +4,7 @@ import ValidationErrors from '@/Components/ValidationErrors.vue';
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
+import Swal from 'sweetalert2';
 
 const props = defineProps({
     authors: Object
@@ -23,13 +24,25 @@ const indexInput = ref(null)
 
 const submit = () => {
     form.post(route('autores.store'), {
-        onFinish: () => alert("listo"),
+        onSuccess: () => Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Autor añadido',
+            showConfirmButton: false,
+            timer: 1500
+        }),
     });
 };
 
 const deleteAuthor = (id) => {
     form.delete(route('autores.destroy', id), {
-        onFinish: () => alert("listo"),
+        onSuccess: () => Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Autor eliminado',
+            showConfirmButton: false,
+            timer: 1500
+        }),
     });
 };
 
@@ -41,10 +54,17 @@ const selectInput = (index) => {
 
 const update = () => {
     author.put(route('autores.update', author.id), {
-        onFinish: () => {
+        onSuccess: () => {
             author.id = 0
             indexInput.value = null
-            alert("listo")
+
+            Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Nombre actualizado',
+            showConfirmButton: false,
+            timer: 1500
+        })
         },
     });
 };
