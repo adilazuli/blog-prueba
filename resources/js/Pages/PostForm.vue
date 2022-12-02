@@ -1,32 +1,9 @@
-<script>
-export default {
-    // Obtener preview de imagen
-    data(){
-        return{
-            imgPreview: null
-        }
-    },
-
-   methods: {
-    GetImage(e){
-        console.log("Aqui", e.target.files);
-        let image =  e.target.files[0];
-        let reader = new FileReader();
-        reader.readAsDataURL(image)
-        reader.onload = e => {
-            console.log(e)
-            this.imgPreview = e.target.result
-        }
-    }
-   }
-}
-</script>
-
 <script setup>
 import Button from '@/Components/Button.vue';
 import ValidationErrors from '@/Components/ValidationErrors.vue';
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { ref } from 'vue';
 
 defineProps({
     authors: Object
@@ -40,12 +17,24 @@ const form = useForm({
     
 });
 
+const imgPreview = ref(null)
+
 
 const submit = () => {
     form.post(route('publicaciones.store'), {
         onSuccess: () => alert("Post creado"),
     });
 };
+
+const GetImage = (e) => {
+        let image =  e.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(image)
+        reader.onload = e => {
+            console.log(e)
+            imgPreview.value = e.target.result
+        }
+    }
 
 
 </script>

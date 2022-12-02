@@ -890,6 +890,9 @@ select {
 .h-96 {
   height: 24rem;
 }
+.h-56 {
+  height: 14rem;
+}
 .max-h-96 {
   max-height: 24rem;
 }
@@ -941,6 +944,15 @@ select {
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
+}
+.w-10 {
+  width: 2.5rem;
+}
+.w-52 {
+  width: 13rem;
+}
+.w-96 {
+  width: 24rem;
 }
 .max-w-xl {
   max-width: 36rem;
@@ -1035,6 +1047,9 @@ select {
 }
 .gap-10 {
   gap: 2.5rem;
+}
+.gap-4 {
+  gap: 1rem;
 }
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -1169,6 +1184,10 @@ select {
 .bg-transparent {
   background-color: transparent;
 }
+.bg-slate-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+}
 .fill-current {
   fill: currentColor;
 }
@@ -1180,6 +1199,9 @@ select {
 }
 .p-4 {
   padding: 1rem;
+}
+.p-9 {
+  padding: 2.25rem;
 }
 .px-4 {
   padding-left: 1rem;
@@ -1228,6 +1250,10 @@ select {
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 .pt-8 {
   padding-top: 2rem;
